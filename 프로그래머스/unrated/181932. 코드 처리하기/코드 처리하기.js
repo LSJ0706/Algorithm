@@ -21,5 +21,5 @@ function solution(code) {
       }
     }
   }
-  return ret === "" ? "EMPTY" : ret;
+  return ret.length === 0 ? "EMPTY" : ret;
 }
