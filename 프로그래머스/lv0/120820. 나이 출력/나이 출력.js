@@ -1,0 +1,1 @@
+const solution = (a) => 2023-a
