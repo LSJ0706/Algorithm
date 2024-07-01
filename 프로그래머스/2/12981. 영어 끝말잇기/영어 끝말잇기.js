@@ -1,19 +1,16 @@
 function solution(n, words) {
-    var answer = [0,0];
-    
-    for(let i=0; i<words.length; i++) {
-        let word = words[i];
-        let player = i%n + 1
-        let turn = Math.ceil((i+1)/n);
-        
-        if(i>0) {
-            let last = words[i-1].split("").pop()
-            
-            if(i>words.indexOf(word) || words[i][0] !== last) {
-                answer = [player, turn]
-                break;
-            }
+    const answer = [0,0];
+    let first = words[0];
+    const word = [first];
+    for(let i=1; i<words.length; i++) {
+        let last = words[i];
+        if(first[first.length-1] !== last[0] || word.includes(last)) {
+            answer[0] = i%n + 1
+            answer[1] = Math.ceil((i+1)/n);
+            break;
         }
+        word.push(last);
+        first = last;
     }
     return answer;
 }
