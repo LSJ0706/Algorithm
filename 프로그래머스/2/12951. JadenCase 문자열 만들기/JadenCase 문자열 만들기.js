@@ -1,6 +1,7 @@
 function solution(s) {
-    const answer = s.split(' ').map(sentence => sentence.replace(/\w/g,(t,idx)=>{
-        return idx === 0 ? t.toUpperCase() : t.toLowerCase()
-    })).join(' ')
-    return answer
+    let answer = '';
+    const arr = s.split(" ").map((e) => {
+        return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
+    })
+    return arr.join(" ");
 }
