@@ -4,7 +4,7 @@ function solution(n, m, section) {
     for(let v of section) {
         if(v > painted){
             answer++
-            painted = v + m - 1
+            painted = v + m - 1;
         }
     }
     return answer;
