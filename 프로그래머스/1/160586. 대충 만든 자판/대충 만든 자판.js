@@ -1,17 +1,20 @@
 function solution(keymap, targets) {
-    var answer = [];
-    targets.forEach((e) => {
-        var count = 0;
-        for(let i=0; i<e.length; i++) {
-            var click = [];
+    const answer = [];
+    targets.forEach((target) => {
+        let sum = 0;
+        for(let i=0; i<target.length; i++) {
+            const min = [];
             for(let j=0; j<keymap.length; j++) {
-                if(keymap[j].includes(e[i])) {
-                    click.push(keymap[j].indexOf(e[i]))
-                }
+                if(keymap[j].indexOf(target[i]) != -1) min.push(keymap[j].indexOf(target[i])+1);
             }
-            count += Math.min(...click) + 1
+            if(min.length != 0) sum += Math.min(...min);
+            else {
+                answer.push(-1)
+                sum = 0;
+                break;
+            }
         }
-        count !== Infinity ? answer.push(count) : answer.push(-1)
+        if (sum != 0) answer.push(sum);
     })
     return answer;
 }
