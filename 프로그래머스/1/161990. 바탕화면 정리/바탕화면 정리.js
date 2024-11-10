@@ -1,28 +1,18 @@
 function solution(wallpaper) {
-    var answer = [];
-    var coordinate = [];
-    var rdx, rdy, lux, luy;
-    for(let i=0; i<wallpaper.length; i++) {
-        for(let j=0; j<wallpaper[0].length; j++) {
-            if(wallpaper[i][j] === "#") {
-                coordinate.push([i,j,i+1,j+1])
-            }
+    const code = [];
+    let lux, luy, rdx, rdy;
+    const coordinate = wallpaper.map((v) => v.split(""));
+    for(let i=0; i<coordinate.length; i++) {
+        for(let j=0; j<coordinate[0].length; j++) {
+            if(coordinate[i][j] == '#') code.push([i,j]);
         }
     }
-    coordinate.forEach((e) => {
-        if(rdx === undefined || rdx > e[0]){
-            rdx = e[0]
-        }
-        if(rdy === undefined || rdy > e[1]){
-            rdy = e[1]
-        }
-        if(lux === undefined || lux < e[2]){
-            lux = e[2]
-        }
-        if(luy === undefined || luy < e[3]){
-            luy = e[3]
-        }
+    code.forEach((v) => {
+        lux = lux <= v[0] ? lux : v[0];
+        luy = luy <= v[1] ? luy : v[1];
+        rdx = rdx >= v[0] ? rdx : v[0];
+        rdy = rdy >= v[1] ? rdy : v[1];
     })
-    answer = [rdx, rdy, lux, luy]
-    return answer;
+    
+    return [lux, luy, rdx+1, rdy+1];
 }
