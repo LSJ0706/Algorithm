@@ -1,11 +1,12 @@
 function solution(s) {
+    const answer = 1;
     const stack = [];
     for(let i=0; i<s.length; i++) {
-            stack.push(s[i])
-            if(stack[stack.length-1] === stack[stack.length-2]) {
-            stack.pop()
-            stack.pop()
+        if(stack.at(-1) === s[i]) {
+            stack.pop();
+        }else {
+            stack.push(s[i]);
         }
     }
-    return stack.length ? 0 : 1;
+    return stack.length === 0 ? answer : 0;
 }
