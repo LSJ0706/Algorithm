@@ -1,11 +1,12 @@
 function solution(brown, yellow) {
-    var num = brown+yellow;
-    for(let col=3; col<=brown; col++) {
-        if(num%col === 0){
-            let row = num/col
-            if((col-2)*(row-2) === yellow) {
-                return [row, col]
-            }
+    const carpet = brown + yellow;
+    let [row, col] = [3,3];
+    for(let i=col; i<=carpet/col; i++) {
+        row = Math.floor(carpet/i);
+        if((row-2)*(i-2) === yellow) {
+            col = i;
+            break;
         }
     }
+    return [row, col];
 }
