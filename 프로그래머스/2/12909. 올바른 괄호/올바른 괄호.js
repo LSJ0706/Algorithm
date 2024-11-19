@@ -1,13 +1,12 @@
 function solution(s){
+    let answer = true;
     const stack = [];
-    
-    for(let i=0; i<s.length; i++) {
-        if(stack[stack.length-1] === "(" && s[i] === ")") {
+    s.split("").forEach((v) => {
+        stack.push(v);
+        if(stack.at(-2) + stack.at(-1) == "()") {
             stack.pop();
-        }else {
-            stack.push(s[i])
+            stack.pop();
         }
-    }
-
-    return !stack.length;
+    })
+    return stack.length != 0 ? !answer : answer;
 }
