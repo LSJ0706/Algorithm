@@ -1,14 +1,17 @@
 function solution(arr) {
-    var lcm = 1;
-    arr.forEach((x) => {
-        var tempLCM = 1
-        while(true) {
-            if(tempLCM % lcm === 0 && tempLCM % x ===0) {
-                lcm = tempLCM
-                break;
-            }
-            tempLCM++
-        }
-    })
-    return lcm;
+    let answer = 0;
+    let num = arr[0]
+    for(let i=1; i<arr.length; i++) {
+        let GCD = calGCD(num,arr[i]);
+        let LCM = (num * arr[i]) / GCD;
+        num = LCM;
+    }
+    return num;
+}
+function calGCD(x,y) {
+    if(x%y != 0) {
+        return calGCD(y, x%y)
+    }else if(x%y === 0){
+        return y
+    }
 }
