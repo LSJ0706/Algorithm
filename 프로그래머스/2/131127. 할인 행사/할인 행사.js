@@ -1,16 +1,20 @@
 function solution(want, number, discount) {
-    var answer = 0;
-    var map = want.reduce((acc, cur, idx) => {
-        acc.set(cur, number[idx])
-        return acc
-    },new Map())
-    console.log(map)
+    let answer = 0;
+    const wantObj = want.reduce((acc,cur,idx) => {
+        acc[cur] = number[idx];
+        return acc;
+    },{});
+    
     for(let i=0; i<=discount.length-10; i++) {
-        var temp = new Map(map.entries())
-        discount.slice(i,i+10).forEach((e) => {
-            temp.set(e, temp.get(e) - 1)
-        })
-        if(Math.max(...[...temp.values()]) == 0) answer++
+        let flag = true;
+        const slice = discount.slice(i,i+10);
+        for(let goods of want) {
+            if(wantObj[goods] != slice.filter(v => v === goods).length) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag) answer++;
     }
     return answer;
 }
