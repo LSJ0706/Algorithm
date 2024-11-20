@@ -1,16 +1,20 @@
 function solution(n, words) {
-    const answer = [0,0];
-    let first = words[0];
-    const word = [first];
-    for(let i=1; i<words.length; i++) {
-        let last = words[i];
-        if(first[first.length-1] !== last[0] || word.includes(last)) {
-            answer[0] = i%n + 1
-            answer[1] = Math.ceil((i+1)/n);
+    let temp;
+    const saidWords = [];
+    let cnt = 0;
+    let person = 0;
+    for(let i=0; i<words.length; i++) {
+        if(saidWords.length === 0) saidWords.push(words[i]);
+        else {
+            if(saidWords.includes(words[i]) || temp[temp.length-1] != words[i][0]) {
+            cnt = Math.ceil((i+1)/n);
+            person = i%n + 1;
             break;
+            }
+            saidWords.push(words[i]);
         }
-        word.push(last);
-        first = last;
+        temp = words[i];
     }
-    return answer;
+
+    return [person, cnt];
 }
