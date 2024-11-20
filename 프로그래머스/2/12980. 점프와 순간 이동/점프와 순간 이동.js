@@ -1,13 +1,12 @@
 function solution(n) {
-    var ans = 0;
-    while(n>0) {
+    let answer = 0;
+    while(n != 0) {
         if(n%2 === 0) {
-            n = n/2
+            n = n/2;
         }else {
-            n --
-            n = n/2
-            ans++
+            n--;
+            answer++;
         }
     }
-    return ans;
+    return answer;
 }
