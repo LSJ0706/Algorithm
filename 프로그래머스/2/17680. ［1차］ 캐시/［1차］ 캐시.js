@@ -16,6 +16,5 @@ function solution(cacheSize, cities) {
             stack.push(e)
         }
     })
-    console.log(stack)
     return answer;
 }
