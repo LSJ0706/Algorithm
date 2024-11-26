@@ -1,5 +1,5 @@
 function solution(progresses, speeds) {
-    var answer = [];
+    let answer = [];
     
     while (speeds.length >0) {
         let cnt = 0;
