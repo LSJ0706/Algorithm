@@ -1,15 +1,15 @@
 function solution(arr1, arr2) {
-    var answer = [];
+    let answer = [];
     for(let i=0; i<arr1.length; i++) {
-        let multi = [];
+        let temp = [];
         for(let j=0; j<arr2[0].length; j++) {
-            let num = 0;
+            let sum = 0;
             for(let k=0; k<arr2.length; k++) {
-                num += arr1[i][k] * arr2[k][j]
+                sum += arr1[i][k] * arr2[k][j];
             }
-            multi.push(num)
+            temp.push(sum);
         }
-        answer.push(multi)
+        answer.push(temp);
     }
     return answer;
 }
