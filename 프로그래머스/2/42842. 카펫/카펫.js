@@ -1,12 +1,19 @@
 function solution(brown, yellow) {
-    const carpet = brown + yellow;
-    let [row, col] = [3,3];
-    for(let i=col; i<=carpet/col; i++) {
-        row = Math.floor(carpet/i);
-        if((row-2)*(i-2) === yellow) {
-            col = i;
-            break;
+    let yellowGCD = [];
+    for(let i=1; i<=Math.sqrt(yellow); i++) {
+        if(yellow%i === 0) {
+            yellowGCD.push(i);
+            yellowGCD.push(yellow/i);
         }
     }
-    return [row, col];
+    yellowGCD = yellowGCD.sort((a,b) => a-b);
+    let [left, right] = [0, yellowGCD.length-1];
+    for(let i=0; i<yellowGCD.length/2; i++) {
+        if((yellowGCD[left]+2)*(yellowGCD[right]+2) === brown+yellow) break;
+        else {
+            left++;
+            right--;
+        }
+    }
+    return [yellowGCD[right]+2, yellowGCD[left]+2];
 }
