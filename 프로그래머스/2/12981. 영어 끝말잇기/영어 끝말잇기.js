@@ -1,20 +1,22 @@
 function solution(n, words) {
-    let temp;
-    const saidWords = [];
-    let cnt = 0;
-    let person = 0;
+    const legacyWords = [];
+    let tempWord = words[0];
+    let [turn, person] = [0,0]
+    
     for(let i=0; i<words.length; i++) {
-        if(saidWords.length === 0) saidWords.push(words[i]);
-        else {
-            if(saidWords.includes(words[i]) || temp[temp.length-1] != words[i][0]) {
-            cnt = Math.ceil((i+1)/n);
-            person = i%n + 1;
-            break;
+        if(legacyWords[0] === undefined) {
+            legacyWords.push(words[i])
+        }else {
+            if(tempWord.at(-1) === words[i][0] && !legacyWords.includes(words[i])) {
+                legacyWords.push(words[i]);
+                tempWord = words[i];
+            }else {
+                person = (i%n) + 1;
+                turn = parseInt(i/n) + 1;
+                break;
             }
-            saidWords.push(words[i]);
         }
-        temp = words[i];
     }
-
-    return [person, cnt];
+    
+    return [person,turn];
 }
