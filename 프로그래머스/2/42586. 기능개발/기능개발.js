@@ -1,5 +1,5 @@
 function solution(progresses, speeds) {
-    let answer = [];
+    const answer = [];
     let stack = [];
     
     while(progresses.length != 0) {
@@ -8,14 +8,14 @@ function solution(progresses, speeds) {
         }
         
         while(progresses[0] >= 100) {
-            stack.push(progresses.shift());
-            speeds.shift();
+                stack.push(progresses.shift());
+                speeds.shift();
         }
-        
         if(stack.length != 0) {
             answer.push(stack.length);
             stack = [];
         }
     }
+
     return answer;
 }
