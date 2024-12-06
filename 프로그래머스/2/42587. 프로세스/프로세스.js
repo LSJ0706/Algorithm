@@ -1,18 +1,17 @@
 function solution(priorities, location) {
-    let queue = Array.from(new Array(priorities.length).keys());
-    let maxValue
     let answer = 0;
-    
-    while(true) {
-        maxValue = Math.max(...priorities);
-        
-        if(priorities[0] < maxValue) {
+    let max = Math.max(...priorities);
+
+    while(priorities.length != 0) {
+        while(priorities[0] != max) {
             priorities.push(priorities.shift());
-            queue.push(queue.shift());
-        }else {
-            answer++
-            priorities.shift();
-            if(location == queue.shift()) return answer;
+            location = location === 0 ? priorities.length-1 : location-1;
         }
+        answer++;
+        priorities.shift();
+        max = Math.max(...priorities);
+        if(location === 0) break;
+        location = location === 0 ? priorities.length-1 : location-1;
     }
+    return answer;
 }
