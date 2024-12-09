@@ -1,33 +1,32 @@
 function solution(str1, str2) {
-    let answer = 0;
-    const arr1 = [];
-    const arr2 = [];
-    const reg = /[^a-z]/
+    const str1Arr = [];
+    const str2Arr = [];
+    const regal = /^[a-z]+$/;
+    
     str1 = str1.toLowerCase();
     str2 = str2.toLowerCase();
     
     for(let i=0; i<str1.length-1; i++) {
-        if(!reg.test(str1.slice(i, i+2))) {
-            arr1.push(str1.slice(i, i+2))
-        }
-    }
-    for(let i=0; i<str2.length-1; i++) {
-        if(!reg.test(str2.slice(i, i+2))) {
-            arr2.push(str2.slice(i, i+2))
+        if(regal.test(str1.slice(i,i+2))) {
+            str1Arr.push(str1.slice(i,i+2));
         }
     }
     
-    const intersection = [];
-    const tempArr1 = [...arr1];
-    for(let i=0; i<arr2.length; i++) {
-        if(tempArr1.indexOf(arr2[i]) >= 0) {
-            intersection.push(arr2[i])
-            tempArr1.splice(tempArr1.indexOf(arr2[i]),1)
+    for(let i=0; i<str2.length-1; i++) {
+        if(regal.test(str2.slice(i,i+2))) {
+            str2Arr.push(str2.slice(i,i+2));
         }
     }
-    if(arr1.length === 0 && arr2.length === 0) {
-        return 65536
-    }else{
-        return Math.floor((intersection.length/(arr1.length + arr2.length - intersection.length))*65536)
-    }
+    let union = 0;
+    let intersection = 0; 
+    const set = new Set([...str1Arr, ...str2Arr]);
+    
+    set.forEach((v) => {
+        const atomic1 = str1Arr.filter((el) => el === v).length;
+        const atomic2 = str2Arr.filter((el) => el === v).length;
+        union += Math.max(atomic1, atomic2);
+        intersection += Math.min(atomic1, atomic2);
+    });
+    
+    return union === 0 ? 65536 : parseInt((intersection/union)*65536);
 }
