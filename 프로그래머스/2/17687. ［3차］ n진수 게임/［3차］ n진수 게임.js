@@ -1,15 +1,17 @@
 function solution(n, t, m, p) {
     let answer = '';
-    let str = '';
-    let num = 0;
+    let cnt = 0;
+    let number = 0;
     
-    while(str.length<t*m) {
-        str+= num.toString(n).toUpperCase();
-        num++
-    }
-    
-    for(let i=p-1; i<t*m; i+=m) {
-        answer += str[i];
+    while(answer.length < t) {
+        let binary = number.toString(n);
+        for(let i=0; i<binary.length; i++) {
+            if((cnt%m) + 1 === p && answer.length < t) {
+                answer += binary[i].toUpperCase();
+            }
+            cnt++;
+        }
+        number++;
     }
     
     return answer;
