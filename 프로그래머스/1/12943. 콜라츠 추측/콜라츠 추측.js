@@ -1,8 +1,10 @@
 function solution(num) {
-    let cnt = 0;
-    while(num != 1 && cnt <= 500) {
-        num % 2 === 0 ? num /= 2 : num = num*3 + 1;
-        cnt++;
+    for (let i=0; i<=500; i++) {
+        if (num != 1) {
+            (num % 2 === 0) ? num /= 2 : num = num*3 + 1;
+        } else {
+            return i;
+        }
     }
-    return num === 1 ? cnt : -1;
+    return -1;
 }
