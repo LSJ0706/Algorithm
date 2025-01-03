@@ -1,12 +1,12 @@
 function solution(babbling) {
     let answer = 0;
-    const babbl = [ "aya", "ye", "woo", "ma"]
+    const words = ["aya", "ye", "woo", "ma"];
     babbling.forEach((v) => {
-        for(let i=0; i<babbl.length; i++) {
-            if(v.includes(babbl[i].repeat(2))) break;
-            v = v.split(babbl[i]).join(" ");
+        for(let i=0; i<words.length; i++) {
+            if(v.includes(words[i].repeat(2))) break;
+            if(v.includes(words[i])) v = v.replaceAll(words[i], " ");
         }
-        if(v.split(" ").join("").length === 0) answer++
+        if(v.replaceAll(" ","").length === 0) answer++;
     })
     return answer;
 }
