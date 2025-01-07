@@ -4,6 +4,7 @@ function solution(n, lost, reserve) {
     let newLost = lost.sort((a,b) => a-b).filter(v => !reserve.includes(v));
     answer = n - newLost.length;
     for(let i=0; i<newReserve.length; i++) {
+        console.log(newLost, newReserve, newLost.includes(newReserve[i]-1), newLost.includes(newReserve[i]+1))
         if(newLost.includes(newReserve[i]-1)) {
             newLost = newLost.filter(v => v !== newReserve[i]-1);
             answer++;
