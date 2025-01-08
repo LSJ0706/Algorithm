@@ -1,22 +1,18 @@
 function solution(s) {
-    let same = 0;
-    let diff = 0;
-    let str = '';
     let answer = 0;
-    
-    for(let i=0; i<s.length; i++) {
-        str += s[i]
-        if(str[0] != s[i]) diff++
-        else same++
+    let first = "";
+    let other = "";
+    [...s].forEach((v,idx) => {
+        if(first === "" || first[0] === v) first += v;
+        else other += v;
         
-        if(same === diff) {
-            answer++
-            same = 0;
-            diff = 0;
-            str = '';
+        if(first.length === other.length) {
+            first = "";
+            other = "";
+            answer ++;
+        } else if(idx+1 === s.length) {
+            answer++;
         }
-        
-        if(same != diff && i+1 === s.length) answer++
-    }
+    })
     return answer;
 }
