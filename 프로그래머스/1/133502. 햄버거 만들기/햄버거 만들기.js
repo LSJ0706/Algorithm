@@ -1,14 +1,11 @@
 function solution(ingredient) {
-    var answer = 0;
+    let answer = 0;
     const stack = [];
     ingredient.forEach((v) => {
         stack.push(v);
-        if(JSON.stringify(stack.slice(-4)) == JSON.stringify([1,2,3,1])) {
-            stack.pop();
-            stack.pop();
-            stack.pop();
-            stack.pop();
-            answer++
+        if(stack.slice(stack.length-4, stack.length).join("") === "1231") {
+            answer++;
+            stack.splice(-4)
         }
     })
     return answer;
