@@ -1,40 +1,26 @@
 function solution(today, terms, privacies) {
     const answer = [];
-    today = today.split(".").map(v => parseInt(v));
-    terms = terms.map((v) => v.split(" "));
-    privacies.forEach((v,idx) => {
-        let [day, type] = v.split(" ");
-        terms.forEach((el) => {
-            if(el[0] == type) {
-                day = day.split(".").map(v => parseInt(v));
-                day[1] += parseInt(el[1]);
-                day[2]--;
-                
-                if(day[1] > 12) {
-                    if(day[1]%12 === 0) {
-                        day[0] += (day[1] / 12) - 1;
-                        day[1] = 12;
-                    }else {
-                        day[0] += parseInt(day[1] / 12);
-                        day[1] = day[1] % 12;
-                    }
-                }
-                
-                if(day[2] === 0) {
-                    day[1]--;
-                    day[2] = 28;
-                    if(day[1] === 0) {
-                        day[0]--;
-                        day[1] = 12;
-                    }
-                }
-            }
-        })
-
-        if(day[0] < today[0]) answer.push(idx+1);
-        else if(day[0] == today[0] && day[1] < today[1]) answer.push(idx+1);
-        else if(day[0] == today[0] && day[1] == today[1] && day[2] < today[2]) answer.push(idx+1);
-    });
+    today = today.split(".").map((v) => Math.floor(v));
+    terms = terms.reduce((acc,cur) => {
+        const [type, period] = cur.split(" ");
+        acc[type] = Math.floor(period);
+        return acc;
+    },{});
     
+    privacies.forEach((v,idx) => {
+        const [date, type] = v.split(" ");
+        let [year, month, day] = date.split(".").map((v) => Math.floor(v));
+        month += terms[type];
+        if(day - 1 === 0) {
+            day = 28;
+            month--;
+        }else {
+            day--;
+        }
+        const todayTime = today[0] * 12 * 28 + today[1] * 28 + today[2];
+        const periodTime = year * 12 * 28 + month * 28 + day;
+        if(todayTime > periodTime) answer.push(idx+1);
+        
+    })
     return answer;
 }
