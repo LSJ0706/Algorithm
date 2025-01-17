@@ -1,16 +1,15 @@
 function solution(players, callings) {
-    const playersObj = players.reduce((acc,cur,idx) => {
-        acc[cur] = idx
+    const answer = players.reduce((acc,cur,idx) => {
+        acc[cur] = idx;
         return acc;
-    },{});
+    },{})
     callings.forEach((v) => {
-        const temp = playersObj[v];
-        const next = playersObj[v]-1;
-        players[temp] = players[next];
-        players[next] = v;
+        const next = players[answer[v]-1];
+        players[answer[v]-1] = v;
+        players[answer[v]] = next;
         
-        playersObj[v]--;
-        playersObj[players[temp]] ++;
-    })
+        answer[v] = answer[v] - 1;
+        answer[next] = answer[v] + 1;
+    });
     return players;
 }
