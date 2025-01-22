@@ -1,3 +1,4 @@
 function solution(s) {
-    return s.substr(Math.ceil(s.length/2)-1, s.length%2 === 0 ? 2 : 1);
+    const middle = Math.ceil(s.length/2)
+    return s.slice(middle-1, s.length%2 === 0 ? middle+1 : middle);
 }
