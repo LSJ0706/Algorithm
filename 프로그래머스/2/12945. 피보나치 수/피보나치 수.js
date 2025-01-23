@@ -1,9 +1,9 @@
 function solution(n) {
-    var number = [0, 1]
-    var answer = 0;
-    for(let i=2; i<=n; i++) {
-        number.push((number[i-2] + number[i-1]) % 1234567)
+    let idx = 2;
+    const fibo = [0,1];
+    while(idx <= n) {
+        fibo[idx] = (fibo[idx-1] + fibo[idx-2])%1234567
+        idx++;
     }
-    answer = number[n]
-    return answer;
+    return fibo[n]%12345678;
 }
