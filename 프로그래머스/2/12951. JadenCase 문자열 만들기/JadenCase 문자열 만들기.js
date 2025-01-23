@@ -1,7 +1,11 @@
 function solution(s) {
-    let answer = '';
-    const arr = s.split(" ").map((e) => {
-        return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
-    })
-    return arr.join(" ");
+    let answer = "";
+    answer = s.split(" ").map((v) => {
+        if(v.trim() !== "") {
+        v = v.toLowerCase();
+        v = v[0].toUpperCase() + v.substr(1);
+        }
+        return v;
+    });
+    return answer.join(" ");
 }
