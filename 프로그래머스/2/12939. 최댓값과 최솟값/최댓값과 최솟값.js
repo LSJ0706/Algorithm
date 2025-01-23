@@ -1,7 +1,4 @@
 function solution(s) {
-    var answer = [];
-    s = s.split(" ").map((x) => Number(x))
-    answer.push(Math.min(...s))
-    answer.push(Math.max(...s))
-    return answer.join(" ");
+    const arr = s.split(" ").map(Number).sort((a,b) => a-b);
+    return `${arr[0]} ${arr[arr.length-1]}`;
 }
