@@ -1,13 +1,13 @@
 function solution(s) {
-    var zero = 0;
-    var count = 0;
-    while(s != 1) {
-        var l = [...s].map(x=>Number(x)).filter(x=>{
-        if(x === 0) zero++
-        return x === 1
-    }).join("").length
-    s = l.toString(2)
-    count++
+    let zeroCut = 0;
+    let binaryTrans = 0;
+    while(s != "1") {
+        const sArr = s.split("")
+        zeroCut += sArr.filter(v => v === "0").length
+        s = sArr.filter(v => v !== "0").length.toString(2);
+        binaryTrans++;
     }
-    return [count, zero];
+
+    
+    return [binaryTrans, zeroCut];
 }
