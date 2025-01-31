@@ -1,19 +1,25 @@
+function findDivisors (num) {
+    const divisors = [];
+    for(let i=2; i<=Math.sqrt(num); i++) {
+        if(num%i === 0) {
+            divisors.push(i);
+            if(num/i !== i) divisors.push(num/i);
+        } 
+    }
+    return divisors.sort((a,b) => b-a);
+}
 function solution(brown, yellow) {
-    let yellowGCD = [];
-    for(let i=1; i<=Math.sqrt(yellow); i++) {
-        if(yellow%i === 0) {
-            yellowGCD.push(i);
-            yellowGCD.push(yellow/i);
+    const WholeTile = brown + yellow
+    const arr = findDivisors(WholeTile);
+    const answer = [];
+    for(let i=0; i<arr.length; i++) {
+        const realYellow = (WholeTile/arr[i]-2) * (arr[i]-2);
+        const realBrown = (WholeTile/arr[i] + arr[i]) * 2 - 4;
+        if(yellow === realYellow && brown === realBrown) {
+            answer.push(arr[i]);
+            answer.push(WholeTile/arr[i]);
+            break;
         }
     }
-    yellowGCD = yellowGCD.sort((a,b) => a-b);
-    let [left, right] = [0, yellowGCD.length-1];
-    for(let i=0; i<yellowGCD.length/2; i++) {
-        if((yellowGCD[left]+2)*(yellowGCD[right]+2) === brown+yellow) break;
-        else {
-            left++;
-            right--;
-        }
-    }
-    return [yellowGCD[right]+2, yellowGCD[left]+2];
+    return answer;
 }
