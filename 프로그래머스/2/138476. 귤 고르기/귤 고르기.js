@@ -1,19 +1,15 @@
 function solution(k, tangerine) {
     let answer = 0;
-    let cnt = 0;
-    const tangerObj = tangerine.reduce((acc,cur) => {
-        if(acc[cur] === undefined) acc[cur] = 1;
-        else acc[cur]++;
+    let sum = 0;
+    const tangerineObj = tangerine.reduce((acc,cur) => {
+        acc.set(cur,acc.get(cur)+1 || 1)
         return acc;
-    },{});
-    const arr = Object.values(tangerObj).sort((a,b) => b-a);
-    for(let i=0; i<arr.length; i++) {
-        if(cnt >= k) {
-            break;
-        }else {
-            cnt += arr[i];
-            answer++;
-        }
+    },new Map())
+    const type = [...tangerineObj.values()].sort((a,b) => b-a);
+    for(let i=0; i<tangerineObj.size; i++) {
+        if(sum >= k) break;
+        answer++;
+        sum += type[i]
     }
     return answer;
 }
