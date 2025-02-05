@@ -1,28 +1,20 @@
 function solution(s) {
-    if(s.length % 2 === 1) return 0;
-
     let answer = 0;
-    const mapping = { "}" : "{", "]" : "[", ")" : "("};
-
-    for(let i = 0; i < s.length; i++) {
+    let str = s;
+    for(let i=0; i<str.length; i++) {
         const stack = [];
-        const rotate = s.slice(i) + s.slice(0, i);
-        let flag = true;
-
-        for(let j = 0; j < s.length; j++) {
-            if(rotate[j] === "[" || rotate[j] === "(" || rotate[j] === "{" )
-                stack.push(rotate[j]);
-            else {
-                const last = stack.pop();
-                if(last !== mapping[rotate[j]]) {
-                    flag = false
-                    break;
-                }
+        str = str.slice(1,str.length) + str[0];
+        str.split("").forEach((v) => {
+            stack.push(v);
+            if(stack.slice(-2).join("") === "[]" ||
+               stack.slice(-2).join("") === "{}" ||
+               stack.slice(-2).join("") === "()"
+              ) {
+                stack.pop();
+                stack.pop();
             }
-        }
-
-        if(flag) answer++;
+        })
+        if(stack.length === 0) answer++;
     }
-
     return answer;
 }
