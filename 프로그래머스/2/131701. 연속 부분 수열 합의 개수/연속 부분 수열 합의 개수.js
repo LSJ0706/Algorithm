@@ -1,11 +1,12 @@
 function solution(elements) {
-    const circularQueue = [...elements,...elements];
-    const answer = [];
-    for(let i=1; i<=elements.length; i++) {
-        for(let j=0; j<elements.length; j++) {
-            answer.push(circularQueue.slice(j,j+i).reduce((acc,cur) => acc + cur))
+    const circular = elements.concat(elements);
+    const set = new Set();
+    for (let i = 0; i < elements.length; i++) {
+        let sum = 0;
+        for (let j = 0; j < elements.length; j++) {
+            sum += circular[i + j];
+            set.add(sum);
         }
     }
-    const answerSet = new Set(answer);
-    return [...answerSet].length;
+    return set.size;
 }
