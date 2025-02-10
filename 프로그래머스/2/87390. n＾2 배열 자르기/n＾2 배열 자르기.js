@@ -1,9 +1,7 @@
 function solution(n, left, right) {
-    var answer = [];
+    let answer = [];
     for(let i=left; i<=right; i++) {
-        const x = Math.floor(i/n)
-        const y = i%n
-        answer.push(Math.max(x, y)+1)
+       answer.push(Math.max(i%n,(parseInt(i/n)))+1) 
     }
     return answer;
 }
