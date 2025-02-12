@@ -1,16 +1,17 @@
 function solution(want, number, discount) {
-    let count = 0;
-    for (let i = 0; i < discount.length - 9; i++) {
-        const slice = discount.slice(i, i+10);
-
-        let flag = true;
-        for (let j = 0; j < want.length; j++) {
-            if (slice.filter(item => item === want[j]).length !== number[j]) {
-                flag = false;
-                break;
-            }
+    let answer = 0;
+    
+    const wantObj = want.reduce((acc,cur,idx) => {
+        acc.set(cur,number[idx]);
+        return acc
+    },new Map());
+    
+    for(let i=0; i<=discount.length-10; i++) {
+        let arr = discount.slice(i,i+10);
+        for(let item of wantObj.keys()) {
+            if(arr.filter(v => v === item).length === wantObj.get(item)) arr = arr.filter(v=> v!==item);  else break;
         }
-        if (flag) count += 1;
+        arr.length === 0 ? answer++ : answer
     }
-    return count;
+    return answer;
 }
