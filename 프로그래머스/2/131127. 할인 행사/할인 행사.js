@@ -1,13 +1,19 @@
 function solution(want, number, discount) {
     let answer = 0;
-    let len = number.reduce((acc,cur) => acc += cur);
-    for(let i=0; i<discount.length-len+1; i++) {
-        let sales = discount.slice(i,i+len);
-        let ok = true;
-        for(let j=0; j<want.length; j++) {
-            if (number[j] !== sales.filter(v => v === want[j]).length) ok = false;
+    const wantObj = want.reduce((acc,cur,idx) => {
+        acc.set(cur,number[idx]);
+        return acc
+    },new Map());
+    for(let i=0; i<=discount.length-10; i++) {
+        let arr = discount.slice(i,i+10);
+        for(let item of wantObj.keys()) {
+            if(arr.filter(v => v === item).length === wantObj.get(item)) {
+                arr = arr.filter(v=> v!==item);
+            }else {
+                break;
+            }
         }
-        if(ok) answer++;
+        arr.length === 0 ? answer++ : answer
     }
     return answer;
 }
