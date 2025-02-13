@@ -1,14 +1,6 @@
 function solution(clothes) {
-    let answer = 1;
-    const map = clothes.reduce((acc,cur) => {
-        const [clothe, type] = cur;
-        if(acc[type] === undefined) acc[type] = 1;
-        else acc[type]++;
-        return acc;
-    },{});
-    for(let i in map) {
-        answer *= map[i]+1
-    }
-
-    return answer-1;
+    return Object.values(clothes.reduce((obj, t)=> {
+        obj[t[1]] = obj[t[1]] ? obj[t[1]] + 1 : 1;
+        return obj;
+    } , {})).reduce((a,b)=> a*(b+1), 1)-1;    
 }
