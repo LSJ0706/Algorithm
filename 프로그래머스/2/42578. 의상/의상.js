@@ -1,6 +1,10 @@
 function solution(clothes) {
-    return Object.values(clothes.reduce((obj, t)=> {
-        obj[t[1]] = obj[t[1]] ? obj[t[1]] + 1 : 1;
-        return obj;
-    } , {})).reduce((a,b)=> a*(b+1), 1)-1;    
+    let answer = 0;
+    const obj = {};
+    clothes.map(([clothe, body]) => {
+        if(obj[body] === undefined) obj[body] = 1
+        else obj[body]++
+    });
+    answer = Object.values(obj).reduce((acc,cur) => acc * (cur+1),1)
+    return answer-1;
 }
