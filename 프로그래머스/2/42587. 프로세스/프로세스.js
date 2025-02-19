@@ -1,17 +1,17 @@
 function solution(priorities, location) {
-    let answer = 0;
-    let max = Math.max(...priorities);
-
-    while(priorities.length != 0) {
-        while(priorities[0] != max) {
-            priorities.push(priorities.shift());
-            location = location === 0 ? priorities.length-1 : location-1;
+    var list = priorities.map((t,i)=>({
+        my : i === location,
+        val : t
+    }));
+    var count = 0;        
+    while(true){
+        var cur = list.splice(0,1)[0];        
+        if(list.some(t=> t.val > cur.val )){
+            list.push(cur);                        
         }
-        answer++;
-        priorities.shift();
-        max = Math.max(...priorities);
-        if(location === 0) break;
-        location = location === 0 ? priorities.length-1 : location-1;
+        else{            
+            count++;
+            if(cur.my) return count;
+        }
     }
-    return answer;
 }
