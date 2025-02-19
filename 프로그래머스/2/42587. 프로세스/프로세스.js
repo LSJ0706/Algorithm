@@ -1,17 +1,18 @@
 function solution(priorities, location) {
-    var list = priorities.map((t,i)=>({
-        my : i === location,
-        val : t
-    }));
-    var count = 0;        
-    while(true){
-        var cur = list.splice(0,1)[0];        
-        if(list.some(t=> t.val > cur.val )){
-            list.push(cur);                        
-        }
-        else{            
-            count++;
-            if(cur.my) return count;
+    let queue = Array.from(new Array(priorities.length).keys());
+    let maxValue
+    let answer = 0;
+    
+    while(true) {
+        maxValue = Math.max(...priorities);
+
+        if(priorities[0] < maxValue) {
+            priorities.push(priorities.shift());
+            queue.push(queue.shift());
+        }else {
+            answer++
+            priorities.shift();
+            if(location == queue.shift()) return answer;
         }
     }
 }
