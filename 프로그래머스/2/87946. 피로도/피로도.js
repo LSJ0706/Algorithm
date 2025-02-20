@@ -1,17 +1,20 @@
-function solution(k, dungeons) {
-    const answer = [];
-    const visited = new Array(dungeons.length).fill(false);
-    function DFS(tired, cnt) {
-        answer.push(cnt);
-        for(let i=0; i<visited.length; i++) {
-            if(!visited[i] && tired >= dungeons[i][0]) {
-                visited[i] = true;
-                DFS(tired-dungeons[i][1], cnt+1);
-                visited[i] = false;
+function solution(k, d) {
+    const N = d.length
+    const visited = new Array(N).fill(0)
+    let ans = 0
+
+    function dfs(k, cnt){
+        ans = Math.max(cnt, ans)
+
+        for (let j = 0; j < N; j++){
+            if (k >= d[j][0] && !visited[j]){
+                visited[j] = 1
+                dfs(k - d[j][1], cnt + 1)
+                visited[j] = 0
             }
-            
         }
     }
-    DFS(k, 0);
-    return Math.max(...answer);
+
+    dfs(k, 0)
+    return ans;
 }
