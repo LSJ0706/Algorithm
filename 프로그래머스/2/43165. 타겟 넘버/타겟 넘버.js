@@ -1,15 +1,15 @@
 function solution(numbers, target) {
     let answer = 0;
-    
-    function DFS (sum, idx) {
-        if(idx === numbers.length) {
-            if(sum === target) answer++;
-            return;
+    getAnswer(0,0);
+    function getAnswer(x,value) {
+        if(x<numbers.length){
+            getAnswer(x+1,value + numbers[x]);
+            getAnswer(x+1,value - numbers[x]);
+        } else{
+            if(value === target){
+                answer++
+            }
         }
-            DFS(sum + numbers[idx], idx+1);
-            DFS(sum - numbers[idx], idx+1);
-        }
-    
-    DFS(0, 0);
+    }
     return answer;
 }
