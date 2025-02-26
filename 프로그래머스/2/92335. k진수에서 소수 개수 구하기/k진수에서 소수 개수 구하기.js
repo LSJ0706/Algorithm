@@ -1,12 +1,16 @@
-function isPrime(num){
-    if(!num || num===1) return false;
-    for(let i=2; i<=+Math.sqrt(num); i++){
-        if(num%i===0) return false;
+const isPrime = (number) => {
+    if(number === 1) return false;
+    for(let i=2; i<=Math.sqrt(number); i++) {
+        if(number%i === 0) return false;
     }
     return true;
 }
 
-function solution(n, k) {    
-    const candidates = n.toString(k).split('0');
-    return candidates.filter(v=>isPrime(+v)).length;
+function solution(n, k) {
+    let answer = 0;
+    const num = n.toString(k).split("0").map(Number).filter(x => x !== 0);
+    for(let i=0; i<num.length; i++) {
+        if(isPrime(num[i])) answer++;
+    }
+    return answer;
 }
