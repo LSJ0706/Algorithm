@@ -1,18 +1,27 @@
 function solution(fees, records) {
-    const parkingTime = {};
-    records.forEach(r => {
-        let [time, id, type] = r.split(' ');
-        let [h, m] = time.split(':');
-        time = (h * 1) * 60 + (m * 1);
-        if (!parkingTime[id]) parkingTime[id] = 0;
-        if (type === 'IN') parkingTime[id] += (1439 - time);
-        if (type === 'OUT') parkingTime[id] -= (1439 - time);
+    const parking = {};
+    records.forEach((record) => {
+        const [time, carNum, enter] = record.split(" ");
+        const [hh, mm] = time.split(":").map(Number);
+        const minutes = hh*60 + mm;
+        
+        if(!parking[carNum]) {
+            parking[carNum] = {time:0, carNum};
+        }
+        
+        parking[carNum].enter = enter;
+        
+        if(enter === "IN") {
+            parking[carNum].inTime = minutes;
+            return;
+        }
+        parking[carNum].time += minutes - parking[carNum].inTime;
     });
-    const answer = [];
-    for (let [car, time] of Object.entries(parkingTime)) {
-        if (time <= fees[0]) time = fees[1];
-        else time = Math.ceil((time - fees[0]) / fees[2]) * fees[3] + fees[1]
-        answer.push([car, time]);
-    }
-    return answer.sort((a, b) => a[0] - b[0]).map(v => v[1]);
+    
+    const answer = Object.values(parking).sort((a,b) => a.carNum - b.carNum).map((v) => {
+        if(v.enter === "IN") v.time += 1439 - v.inTime;
+        if(fees[0] > v.time) return fees[1];
+        return fees[1] + Math.ceil((v.time - fees[0])/fees[2]) * fees[3];
+    })
+    return answer;
 }
