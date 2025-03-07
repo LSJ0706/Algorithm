@@ -1,20 +1,3 @@
-function solution(word) {
-    var answer = 0;
-    const result = [];
-    
-    const DFS = (word, length, result) => {
-        const gather = [..."AEIOU"];
-        
-        if(length === word.length) {
-            result.push(word)
-            return;
-        }
-        
-        gather.forEach((e) => {
-            DFS(word+e, length, result);
-            });
-        };
-    
-    for(let i=1; i<=5; i++) DFS("", i, result)
-    return result.sort().indexOf(word) + 1;
+function solution(words) {
+    return words.split('').reduce((r, c, i) => r + [781, 156, 31, 6, 1][i] * ['A', 'E', 'I', 'O', 'U'].indexOf(c) + 1, 0);
 }
