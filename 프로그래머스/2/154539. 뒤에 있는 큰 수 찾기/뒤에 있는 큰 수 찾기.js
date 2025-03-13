@@ -1,14 +1,11 @@
 function solution(numbers) {
-    var answer = Array(numbers.length);
-    var check = [0];
-    for (var i = 1; i < numbers.length; i++) {
-        while (check.length && numbers[check[check.length - 1]] < numbers[i]) {
-            answer[check.pop()] = numbers[i];
+    const answer = new Array(numbers.length).fill(-1);
+    const stack = [];
+    for(let i=0; i<numbers.length; i++) {
+        while(stack.length && numbers[stack.at(-1)] < numbers[i]) {
+            answer[stack.pop()] = numbers[i];
         }
-        check.push(i);
-    }
-    while (check.length) {
-        answer[check.pop()] = -1;
+        stack.push(i);
     }
     return answer;
 }
