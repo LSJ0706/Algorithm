@@ -1,14 +1,19 @@
 function solution(topping) {
     let answer = 0;
-    const up = new Map();
+    const len = topping.length;
+    const up = topping.reduce((acc, cur) => {
+        acc.set(cur, (acc.get(cur) || 0)+1);
+        return acc
+    }, new Map());
+    let upTopping = (new Set(topping)).size;
     const down = new Set();
-    topping.forEach((v) => { up.set(v, (up.get(v) || 0) +1); });
     
-    for(let i=0; i<topping.length; i++) {
-        up.set(topping[i], up.get(topping[i])-1);
-        if(up.get(topping[i]) === 0) up.delete(topping[i]);
-        down.add(topping[i]);
-        if(up.size === down.size) answer++;
+    for(let i=0; i<len; i++) {
+        const currentTopping = topping[i]
+        down.add(currentTopping);
+        up.set(currentTopping, (up.get(currentTopping)-1));
+        if(!up.get(currentTopping)) upTopping--;
+        if(down.size === upTopping) answer++;
     }
     return answer;
 }
