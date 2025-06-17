@@ -1,27 +1,21 @@
 function solution(maps) {
-    const [n,m] = [maps.length-1, maps[0].length-1]
-    const queue = [];
-    const x = [1, -1, 0, 0];
-    const y = [0, 0, 1, -1];
+    const queue = [[0,0,1]];
+    const moveX = [1, -1, 0, 0];
+    const moveY = [0, 0, 1, -1];
     
-    queue.push([0,0,1])
-    maps[0][0] = 0;
-    
-    while(queue.length) {
-        const [tx, ty, count]= queue.shift();
-        
-        if(tx === n && ty === m) return count
-        
+    while(queue.length !== 0) {
+        const [x, y, cnt] = queue.shift();
+        if(x === maps.length-1 && y === maps[0].length-1) return cnt;
         for(let i=0; i<4; i++) {
-            const curX = tx + x[i];
-            const curY = ty + y[i];
-            
-            if(curX>=0 && curX<=n && curY>=0 && curY<=m && maps[curX][curY] === 1) {
-                queue.push([curX,curY,count+1]);
-                maps[curX][curY] = 0;
+            const cx = x + moveX[i];
+            const cy = y + moveY[i];
+            if(cx >= 0 && cy >= 0 && cx < maps.length && cy < maps[0].length && maps[cx][cy] === 1) {
+                queue.push([cx,cy,cnt+1]);
+                        maps[cx][cy] = 0;
             }
         }
-        
+
     }
+
     return -1;
 }
