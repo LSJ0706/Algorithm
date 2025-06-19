@@ -1,19 +1,21 @@
 function solution(topping) {
     let answer = 0;
-    const len = topping.length;
-    const up = topping.reduce((acc, cur) => {
-        acc.set(cur, (acc.get(cur) || 0)+1);
-        return acc
-    }, new Map());
-    let upTopping = (new Set(topping)).size;
-    const down = new Set();
+    let top = 0;
+    const a = new Set();
+    const b = topping.reduce((acc, cur) => {
+        if(acc[cur] === undefined) {
+            acc[cur] = 1;
+            top++;
+        }
+        else acc[cur] = acc[cur]+1;
+        return acc;
+    },{});
     
-    for(let i=0; i<len; i++) {
-        const currentTopping = topping[i]
-        down.add(currentTopping);
-        up.set(currentTopping, (up.get(currentTopping)-1));
-        if(!up.get(currentTopping)) upTopping--;
-        if(down.size === upTopping) answer++;
+    for(let i=0; i<topping.length; i++) {
+        a.add(topping[i]);
+        b[topping[i]] = b[topping[i]]-1;
+        if(b[topping[i]] === 0) top--;
+        if(top === a.size) answer++;
     }
     return answer;
 }
