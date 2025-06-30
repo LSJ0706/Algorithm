@@ -3,7 +3,8 @@ function solution(numbers) {
     const stack = [];
     for(let i=0; i<numbers.length; i++) {
         while(stack.length && numbers[stack.at(-1)] < numbers[i]) {
-            answer[stack.pop()] = numbers[i];
+                answer[stack.at(-1)] = numbers[i];
+                stack.pop();
         }
         stack.push(i);
     }
