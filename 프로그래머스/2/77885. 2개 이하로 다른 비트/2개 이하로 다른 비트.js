@@ -1,18 +1,20 @@
 function solution(numbers) {
     const answer = [];
-    numbers.forEach((v) => {
-        if(v ===1 || v % 2 ===0) {
-            answer.push(v+1);
-        }else {
-            const odd = "0" + v.toString(2);
-            const len = odd.length;
-            for(let i=len-1; i>0; i--) {
-                if(odd[i-1] + odd[i] === "01") {
-                    answer.push(parseInt((odd.slice(0,i-1) + "10" + odd.slice(i+1,len)),2))
+    numbers.forEach((number) => {
+        if(number % 2 === 0) {
+            answer.push(number + 1);
+        } else {
+            const str = '0' + number.toString(2);
+            for(let i=str.length-1; i>=0; i--) {
+                if(str[i] === '0') {
+                    const ans = str.substring(0,i) + "10" + str.substring(i+2,str.length);
+                    answer.push(parseInt(ans, 2));
                     break;
                 }
             }
         }
+
+        
     })
     return answer;
 }
