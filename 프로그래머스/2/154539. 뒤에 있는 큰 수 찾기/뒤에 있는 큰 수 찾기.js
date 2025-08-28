@@ -2,13 +2,11 @@ function solution(numbers) {
     const answer = new Array(numbers.length).fill(-1);
     const stack = [];
     
-    numbers.forEach((number, idx) => {
-        while(stack.length && numbers[stack.at(-1)] < number) {
-            const i = stack.pop();
-            answer[i] = number;
+    for(let i=0; i<numbers.length; i++) {
+        while(stack.length && numbers[stack.at(-1)] < numbers[i]) {
+            answer[stack.pop()] = numbers[i];
         }
-        stack.push(idx);
-    });
-    
+        stack.push(i);
+    }
     return answer;
 }
