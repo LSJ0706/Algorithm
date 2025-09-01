@@ -1,11 +1,14 @@
 function solution(number, k) {
     const answer = [];
-    for(let i=0; i<number.length; i++) {
-        while(k > 0 && answer.at(-1) < number[i]) {
+    const numbers = number.split("").map(Number);
+    for(let i=0; i<numbers.length; i++) {
+        while(answer.length && answer.at(-1) < numbers[i]) {
+            if(k === 0) break;
             answer.pop();
             k--;
         }
-        answer.push(number[i]);
+        answer.push(numbers[i]);
     }
-    return answer.splice(0,answer.length-k,k).join("");
+    answer.splice(answer.length-k,k);
+    return answer.join("");
 }
