@@ -1,28 +1,20 @@
 function solution(storey) {
     let answer = 0;
-    storey = (storey+"").split("").map(Number);
-    let len = storey.length-1;
+    const storeyArr = (storey + "").split("").reverse().map(Number);
     
-    while(len >= 0) {
-        if(storey[len] < 5) {
-            answer += storey[len];
-        }else if(storey[len] > 5) {         
-            if(len === 0) {
-                answer += (11 - storey[len]);
+    for(let i=0; i<storeyArr.length; i++) {
+        if(storeyArr[i] > 5) {
+            if(i === storeyArr.length - 1) answer += (11 - storeyArr[i]);
+            else answer += (10 - storeyArr[i]);
+            storeyArr[i+1]++;
+        }else if(storeyArr[i] < 5) {
+            answer += storeyArr[i];
+        }else if(storeyArr[i] === 5){
+            answer += 5;
+            if(storeyArr[i+1] >= 5) {
+                storeyArr[i+1]++;
             }
-            else {
-                answer += (10 - storey[len]);    
-                storey[len-1] += 1;
-            }
-        }else if(storey[len] === 5) {
-            if(storey[len-1]+1 > 5) {
-                answer += 5
-                storey[len-1] += 1;
-            }
-            else answer += 5;
         }
-        len--;
     }
-    
     return answer;
 }
