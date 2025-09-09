@@ -4,14 +4,16 @@ function solution(book_time) {
     
     book_time.sort();
     book_time.forEach((time) => {
-        const [startH, startM] = time[0].split(":").map(Number);
-        const [endH, endM] = time[1].split(":").map(Number);
-        const startTime = startH * 60 + startM;
-        const endTime = endH * 60 + endM;
-        const idx = rooms.findIndex((v) => v <= startTime);
+        const [start, end] = time;
+        const [startH, startM] = start.split(":").map(Number);
+        const [endH, endM] = end.split(":").map(Number);
+        const startTime = (startH * 60) + startM;
+        const endTime = (endH * 60) + endM;
         
+        const idx = rooms.findIndex((room) => room <= startTime);
         if(idx === -1) rooms.push(endTime+10);
         else rooms[idx] = endTime+10;
-    })
+
+    });
     return rooms.length;
 }
