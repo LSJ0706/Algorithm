@@ -8,14 +8,14 @@ function calGCD (a,b) {
 function solution(arrayA, arrayB) {
     let answer = 0;
     
-    const aGCD = arrayA.reduce((acc, cur) => calGCD(acc, cur));
-    const bGCD = arrayB.reduce((acc, cur) => calGCD(acc, cur));
+    const aGCD = arrayA.reduce((acc,cur) => calGCD(acc, cur));
+    const bGCD = arrayB.reduce((acc,cur) => calGCD(acc, cur));
     
-    const isValidA = arrayB.every((v) => v % aGCD !== 0);
-    const isValidB = arrayA.every((v) => v % bGCD !== 0);
+    const aValid = arrayB.every((v) => v % aGCD !== 0);
+    const bValid = arrayA.every((v) => v % bGCD !== 0);
     
-    if(isValidA) answer = Math.max(answer, aGCD);
-    if(isValidB) answer = Math.max(answer, bGCD);
+    if(aValid) { answer = Math.max(answer, aGCD) }
+    if(bValid) { answer = Math.max(answer, bGCD) }
     
     return answer;
 }
