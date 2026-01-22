@@ -1,20 +1,20 @@
 function solution(cacheSize, cities) {
-    cities = cities.map((x) => x.toLowerCase())
-    var answer = 0;
-    var stack = [];
-    cities.forEach((e) => {
-        if(!stack.includes(e)) {
-            answer += 5
-            stack.push(e)
-            if(stack.length > cacheSize) {
-                stack.shift();
+    const cache = new Array(cacheSize);
+    let answer = 0;
+    cities.map(v => v.toLowerCase()).forEach((v) => {
+        if(cache.indexOf(v) === -1) {
+            answer += 5;
+            cache.push(v);
+            if(cache.length > cacheSize) {
+                cache.shift();
             }
-        }else {
-            answer++;
-            let idx = stack.indexOf(e)
-            stack.splice(idx,1)
-            stack.push(e)
+        } else {
+            answer += 1;
+            const idx = cache.indexOf(v);
+            cache.splice(idx,1);
+            cache.push(v);
         }
-    })
+    });
+    
     return answer;
 }
